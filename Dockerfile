@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY package*.json ./
 
-# ใช้ npm ci อย่างเดียวพอสำหรับ CI/CD
 RUN npm ci
 
 COPY . .
@@ -12,7 +11,6 @@ COPY . .
 ARG BUILD_MODE=production
 RUN npm run build -- --mode ${BUILD_MODE}
 
-# Production stage
 FROM nginx:alpine AS production-stage
 
 COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
