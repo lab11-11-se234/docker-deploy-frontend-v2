@@ -4,14 +4,13 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
-
+# ใช้ npm ci อย่างเดียวพอสำหรับ CI/CD
 RUN npm ci
 
 COPY . .
 
 ARG BUILD_MODE=production
-RUN npm run build --mode ${BUILD_MODE}
+RUN npm run build -- --mode ${BUILD_MODE}
 
 # Production stage
 FROM nginx:alpine AS production-stage
